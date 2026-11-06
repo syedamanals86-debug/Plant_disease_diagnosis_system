@@ -1,33 +1,92 @@
 # Plant Disease Diagnosis System
 
-This project uses a Flask backend with a modern React + Tailwind frontend for plant disease detection.
+An AI-powered plant disease diagnosis application that uses deep learning and image processing to identify plant diseases from leaf images. The system provides disease information and recommended solutions through a simple, multilingual interface.
 
-## Run the frontend
-1. Install Node.js and npm if they are not already available.
-2. Open a terminal in the `frontend` folder.
-3. Install dependencies:
-   ```bash
-   npm install
-   ```ntend:
-   ```bash
-4. Build the production fro
-   npm run build
-   ```
+## Application Screenshots
+![Chat interface](docs/interface.png.png)
 
-The build will output to `app/static/frontend`, which the Flask backend serves automatically.
+## Features
 
-## Run the backend
-1. Install Python dependencies using the provided requirements file:
-   ```bash
-   pip install -r requirments.txt
-   ```
-2. Start the Flask server:
-   ```bash
-   python app/app.py
-   ```
-3. Open the app in your browser at `http://127.0.0.1:5000`.
+- **AI-Based Disease Detection:** Identifies plant diseases from uploaded leaf images.
+- **Multilingual Interface:** Supports English, Hindi, Urdu, and Kannada.
+- **Disease Information:** Provides information about identified diseases.
+- **Suggested Solutions:** Displays relevant recommendations for detected diseases.
+- **Interactive Interface:** Provides a simple and accessible user experience.
 
-## Development notes
-- The frontend is built with React, Tailwind CSS, and Framer Motion.
-- The Flask backend exposes an API endpoint at `/api/predict`.
-- Uploaded images are saved to `app/static/` for preview and result display.
+## Technology Stack
+
+- Python
+- TensorFlow / Keras
+- Deep Learning
+- HTML, CSS, JavaScript
+- Jupyter Notebook
+
+## Project Structure
+
+```text
+Plant Disease Diagnosis/
+├── app/
+│   ├── static/
+│   ├── templates/
+│   ├── app.py
+│   └── disease_solutions.py
+├── data/
+├── frontend/
+├── models/
+├── notebooks/
+├── src/
+│   ├── data_loader.py
+│   ├── evaluate.py
+│   ├── model.keras
+│   ├── model.py
+│   ├── predict.py
+│   └── train.py
+├── .gitignore
+└── README.md
+```
+
+## System Workflow
+
+1. Upload a plant leaf image.
+2. Process the image for model prediction.
+3. Analyse the image using the trained deep learning model.
+4. Generate the predicted disease class.
+5. Display disease information and suggested solutions.
+6. Access the application in the preferred language.
+
+## Supported Languages
+
+| Language | |
+|---|---|
+| English | ✓ |
+| Hindi | ✓ |
+| Urdu | ✓ |
+| Kannada | ✓ |
+
+## Installation
+
+```bash
+git clone YOUR_REPOSITORY_URL
+cd "Plant Disease Diagnosis"
+
+python -m venv .venv
+.venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+## Run the Application
+
+```bash
+python app/app.py
+```
+
+## Author
+
+Syeda Rana Manal
+
+[GitHub Profile](https://github.com/syedamanals86-debug)
+
+[Linkdin Profile](https://www.linkedin.com/in/syeda-rana-manal-2bb3a240b/)
+
+
