@@ -1,0 +1,51 @@
+# Virtual environments
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter notebooks cache
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# VS Code
+.vscode/
+
+# Node modules
+frontend/node_modules/
+
+# Build folders
+frontend/dist/
+frontend/build/
+
+# ML/DL model files
+*.h5
+*.keras
+*.pth
+*.pt
+
+# Ignore specific model folders
+models/
+src/model.keras
+
+# Dataset folders
+data/
+dataset/
+train_val_test/
+PlantVillageDatasaet/
+PlantVillage/
+
+# Static uploaded images
+app/static/
+static/
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Diagnosis</title>
+    <style>
+        :root {
+            --bg: #f2fcf6;
+            --surface: rgba(255, 255, 255, 0.94);
+            --panel: #f8fff7;
+            --panel-strong: #e2f2e7;
+            --primary: #2f7f43;
+            --accent: #64b867;
+            --accent-soft: #d8f1d5;
+            --border: rgba(76, 175, 80, 0.18);
+            --text: #163926;
+            --muted: #4c7a55;
+            --shadow: rgba(54, 105, 72, 0.14);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background: linear-gradient(180deg, #b9e2b2 0%, #8fcf8a 45%, #c3e7c2 100%);
+        }
+        .container {
+            width: min(1140px, calc(100% - 32px));
+            margin: 32px auto;
+            padding: 28px;
+            background: rgba(200, 238, 200, 0.98);
+            border: 1px solid rgba(76, 175, 80, 0.18);
+            border-radius: 32px;
+            box-shadow: 0 28px 60px rgba(76, 175, 80, 0.18);
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .side-panel {
+            background: linear-gradient(180deg, var(--panel), var(--panel-strong));
+            border: 1px solid rgba(76, 175, 80, 0.15);
+            border-radius: 30px;
+            box-shadow: 0 24px 56px rgba(54, 105, 72, 0.1);
+            padding: 34px;
+            color: var(--text);
+        }
+        .side-panel h1 {
+            margin: 0 0 16px;
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            line-height: 1.02;
+            color: #205d37;
+        }
+        .side-panel p {
+            margin: 0 0 26px;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #376c4f;
+        }
+        .form-group {
+            display: grid;
+            gap: 16px;
+        }
+        .form-group label {
+            font-weight: 700;
+            color: #275833;
+            font-size: 1.05rem;
+        }
+        .form-group label span {
+            margin-left: 10px;
+        }
+        .file-input-wrapper {
+            width: 100%;
+            min-height: 88px;
+            display: grid;
+            place-content: center;
+            border-radius: 24px;
+            border: 1px solid rgba(76, 175, 80, 0.22);
+            background: rgba(248, 255, 250, 0.9);
+            padding: 14px 18px;
+            color: var(--text);
+        }
+        input[type='file'], select {
+            width: 100%;
+            padding: 18px 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            background: #ffffff;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        input[type='file'] {
+            cursor: pointer;
+        }
+        .tip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 18px;
+            border-radius: 22px;
+            background: rgba(100, 184, 103, 0.1);
+            color: #2f703f;
+            border: 1px solid rgba(100, 184, 103, 0.22);
+            font-size: 0.98rem;
+        }
+        .submit-button {
+            width: 100%;
+            border: none;
+            border-radius: 24px;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #4ba76d 0%, #82c383 100%);
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 32px rgba(50, 99, 56, 0.18);
+        }
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 38px rgba(50, 99, 56, 0.24);
+        }
+        .header-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, #e6f4e9, #f8fcf7);
+            border: 1px solid rgba(76, 175, 80, 0.12);
+            border-radius: 24px;
+            padding: 22px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 18px 44px rgba(54, 105, 72, 0.08);
+            color: var(--text);
+        }
+        .header-bar h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 2vw, 2.8rem);
+            color: #1f5c38;
+        }
+        .header-bar p {
+            margin: 6px 0 0;
+            color: #3f6e50;
+            font-size: 0.98rem;
+        }
+        .result-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(235, 248, 238, 0.98));
+            border: 1px solid rgba(113, 192, 113, 0.18);
+            border-radius: 30px;
+            padding: 32px;
+            box-shadow: 0 24px 60px rgba(54, 105, 72, 0.08);
+            margin-top: 24px;
+        }
+        .result-top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .result-title {
+            margin: 0;
+            font-size: 2rem;
+            color: #22593d;
+        }
+        .badge {
+            padding: 12px 18px;
+            background: rgba(76, 175, 80, 0.14);
+            color: #275c3d;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+        .result-block {
+            border-radius: 28px;
+            border: 1px solid rgba(132, 199, 124, 0.18);
+            padding: 26px;
+            min-height: 170px;
+            box-shadow: 0 14px 28px rgba(36, 86, 42, 0.06);
+        }
+        .result-block:nth-child(1) {
+            background: rgba(216, 245, 255, 0.94);
+            border-color: rgba(110, 195, 255, 0.28);
+        }
+        .result-block:nth-child(2) {
+            background: rgba(255, 248, 236, 0.94);
+            border-color: rgba(255, 182, 94, 0.28);
+        }
+        .result-block:nth-child(3) {
+            background: rgba(240, 251, 234, 0.94);
+            border-color: rgba(152, 207, 116, 0.28);
+        }
+        .result-block strong {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            color: #1d4f37;
+        }
+        .result-block p {
+            margin: 0;
+            line-height: 1.75;
+            color: #2d4f37;
+        }
+        .result-preview {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 18px;
+            margin-top: 22px;
+        }
+        .result-preview strong {
+            min-width: 180px;
+            color: #225939;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+        .result-image {
+            width: min(360px, 100%);
+            max-height: 260px;
+            border-radius: 24px;
+            object-fit: cover;
+            border: 1px solid rgba(118, 201, 114, 0.24);
+            box-shadow: 0 18px 36px rgba(37, 87, 46, 0.1);
+        }
+        @media (max-width: 860px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <section class="header-bar">
+        <div>
+            <h1>{{ project_title }}</h1>
+            <p>Smart plant health diagnosis for tomato, potato, and bell pepper crops with local language support.</p>
+        </div>
+    </section>
+    <div class="hero">
+        <section class="side-panel">
+            <h1>Plant Disease Snapshot</h1>
+            <p>Upload a leaf image, choose your language, and get quick diagnosis guidance with color-coded recommendations.</p>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="imageInput">Choose image to diagnose <span>🍃</span></label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="imageInput" name="file" accept="image/*" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="language">Choose language <span>🌎</span></label>
+                    <select id="language" name="language" required>
+                        <option value="en" {% if selected_language=='en' %}selected{% endif %}>English</option>
+                        <option value="hi" {% if selected_language=='hi' %}selected{% endif %}>Hindi</option>
+                        <option value="kn" {% if selected_language=='kn' %}selected{% endif %}>Kannada</option>
+                        <option value="ur" {% if selected_language=='ur' %}selected{% endif %}>Urdu</option>
+                    </select>
+                </div>
+                <div class="tip">Tip: Bright light, clean leaf background, and a close-up of the affected area help the model perform better.</div>
+                <button type="submit" class="submit-button">Detect Disease</button>
+            </form>
+        </section>
+    </div>
+    {% if prediction %}
+    <section class="result-card {% if status %}{{ status|lower|replace(' ', '-') }}{% endif %}">
+        <div class="result-top">
+            <div>
+                <h2 class="result-title">Detected: {{ prediction }}</h2>
+                {% if status %}
+                <span class="status-pill">{{ status }}</span>
+                {% endif %}
+            </div>
+            <span class="badge {% if status %}{{ status|lower|replace(' ', '-') }}{% endif %}">Confidence {{ confidence }}%</span>
+        </div>
+        <div class="result-grid">
+            <div class="result-block">
+                <strong>Symptoms observed</strong>
+                <p>{{ symptoms }}</p>
+            </div>
+            <div class="result-block">
+                <strong>Action to take</strong>
+                <p>{{ solution }}</p>
+            </div>
+            <div class="result-block">
+                <strong>Farmer recommendation</strong>
+                <p>{{ advice }}</p>
+            </div>
+        </div>
+        {% if img_path %}
+        <div class="result-preview">
+            <strong>Reviewed image</strong>
+            <img class="result-image" src="{{ img_path }}" alt="Uploaded leaf image">
+        </div>
+        {% endif %}
+    </section>
+    {% endif %}
+</div>
+</body>
+</html>
