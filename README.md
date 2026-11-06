@@ -2,8 +2,7 @@
 
 An AI-powered plant disease diagnosis application that uses deep learning and image processing to identify plant diseases from leaf images. The system provides disease information and recommended solutions through a simple, multilingual interface.
 
-
-https://github.com/user-attachments/assets/a1231dbd-f835-4567-af2c-b94f4aed84dd
+https://github.com/user-attachments/assets/29e2ee85-229f-43f9-97ab-e2a28f39fb8d
 
 ## Application Screenshots
 ![Chat interface](docs/interface.png.png)
